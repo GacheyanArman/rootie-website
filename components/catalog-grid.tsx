@@ -1,7 +1,8 @@
 'use client'
 
+import { useRef } from 'react'
 import Image from 'next/image'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, ArrowLeft, ArrowRight } from 'lucide-react'
 import { useLanguage } from '@/components/language-provider'
 import type { CatalogItem } from '@/lib/catalog'
 import { LINKS } from '@/lib/links'
@@ -9,6 +10,15 @@ import { cn } from '@/lib/utils'
 
 export function CatalogGrid({ items }: { items: CatalogItem[] }) {
   const { t } = useLanguage()
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollContainerRef.current) {
+      const { current } = scrollContainerRef
+      const scrollAmount = current.clientWidth * 0.8
+      current.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' })
+    }
+  }
 
   if (items.length === 0) {
     return (
@@ -22,8 +32,28 @@ export function CatalogGrid({ items }: { items: CatalogItem[] }) {
   }
 
   return (
-    <div className="mt-16 flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 md:mt-24 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-      {items.map((item, index) => {
+    <div className="mt-16 md:mt-24">
+      <div className="mb-6 hidden justify-end gap-3 md:mb-8 md:flex">
+        <button 
+          onClick={() => scroll('left')}
+          className="flex size-12 items-center justify-center rounded-full border border-border bg-background transition-colors hover:bg-foreground hover:text-background"
+          aria-label="Scroll left"
+        >
+          <ArrowLeft className="size-5" />
+        </button>
+        <button 
+          onClick={() => scroll('right')}
+          className="flex size-12 items-center justify-center rounded-full border border-border bg-background transition-colors hover:bg-foreground hover:text-background"
+          aria-label="Scroll right"
+        >
+          <ArrowRight className="size-5" />
+        </button>
+      </div>
+      <div 
+        ref={scrollContainerRef}
+        className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-8 md:gap-6 -mx-4 px-4 md:-mx-8 md:px-8 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {items.map((item, index) => {
         const isOut = item.stock === 'out'
 
         return (
@@ -34,7 +64,7 @@ export function CatalogGrid({ items }: { items: CatalogItem[] }) {
             rel={isOut ? undefined : 'noopener noreferrer'}
             aria-disabled={isOut || undefined}
             className={cn(
-              'group relative flex shrink-0 flex-col snap-center w-[85vw] sm:w-[45vw] md:w-[400px]',
+              'group relative flex shrink-0 flex-col snap-start w-[85vw] sm:w-[45vw] md:w-[400px]',
               isOut && 'pointer-events-none opacity-50',
             )}
           >
@@ -64,6 +94,7 @@ export function CatalogGrid({ items }: { items: CatalogItem[] }) {
           </a>
         )
       })}
+      </div>
     </div>
   )
 }
