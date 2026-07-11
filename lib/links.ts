@@ -9,8 +9,23 @@ export const LINKS = {
 } as const
 
 export const STORE = {
+  name: 'ROOTIE',
+  legalName: 'ROOTIE Concept Store',
+  description: 'Магазин оригинальных кроссовок, стритвира и коллекционных аксессуаров в центре Еревана.',
   address: 'Saryan 4, Ереван, Армения',
+  streetAddress: '4 Martiros Saryan St',
+  addressLocality: 'Yerevan',
+  addressRegion: 'Yerevan',
+  postalCode: '0002',
+  addressCountry: 'AM',
+  latitude: 40.1844,
+  longitude: 44.5065,
   phone: '+374 41 773561',
+  priceRange: '$$',
+  currency: 'AMD',
+  opens: '11:00',
+  closes: '22:00',
   hours: 'Ежедневно 11:00 – 22:00',
+  timeZone: 'Asia/Yerevan',
   instagramHandle: '@rootie.yerevan',
 } as const

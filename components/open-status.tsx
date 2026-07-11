@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from 'react'
 import { useLanguage } from '@/components/language-provider'
+import { STORE } from '@/lib/links'
 
 function isStoreOpen() {
   const parts = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'Asia/Yerevan',
+    timeZone: STORE.timeZone,
     hour: '2-digit',
     minute: '2-digit',
     hour12: false,
@@ -13,7 +14,9 @@ function isStoreOpen() {
   const hour = Number(parts.find((part) => part.type === 'hour')?.value ?? 0)
   const minute = Number(parts.find((part) => part.type === 'minute')?.value ?? 0)
   const minutes = hour * 60 + minute
-  return minutes >= 11 * 60 && minutes < 22 * 60
+  const [opensHour, opensMinute] = STORE.opens.split(':').map(Number)
+  const [closesHour, closesMinute] = STORE.closes.split(':').map(Number)
+  return minutes >= opensHour * 60 + opensMinute && minutes < closesHour * 60 + closesMinute
 }
 
 export function OpenStatus() {

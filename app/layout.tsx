@@ -8,15 +8,17 @@ const inter = Inter({ subsets: ['latin', 'cyrillic'], variable: '--font-inter' }
 const archivo = Archivo({ subsets: ['latin'], weight: ['600', '700', '800', '900'], variable: '--font-archivo' })
 
 const siteUrl = 'https://rootie.am'
-const title = 'ROOTIE — Original Sneakers & Streetwear in Yerevan'
-const description = 'Original sneakers, streetwear and collectible accessories at Saryan 4 in central Yerevan. Open daily 11:00–22:00.'
+const title = 'Магазин оригинальных кроссовок в Ереване | ROOTIE'
+const description = 'ROOTIE — магазин оригинальных кроссовок, стритвира и коллекционных аксессуаров по адресу Сарьяна 4 в Ереване. Ежедневно 11:00–22:00.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title,
   description,
-  keywords: ['sneakers Yerevan', 'streetwear Armenia', 'original sneakers', 'Rootie Yerevan', 'кроссовки Ереван', 'streetwear Ереван'],
-  alternates: { canonical: '/' },
+  applicationName: 'ROOTIE',
+  category: 'shopping',
+  keywords: ['sneakers Yerevan', 'sneaker store Yerevan', 'streetwear Armenia', 'original sneakers Armenia', 'Rootie Yerevan', 'кроссовки Ереван', 'магазин кроссовок Ереван', 'оригинальные кроссовки Армения', 'streetwear Ереван'],
+  alternates: { canonical: '/', languages: { 'ru-AM': '/', 'x-default': '/' } },
   openGraph: {
     type: 'website',
     url: siteUrl,
@@ -36,17 +38,60 @@ export const viewport: Viewport = { themeColor: '#111210', width: 'device-width'
 
 const structuredData = {
   '@context': 'https://schema.org',
-  '@type': 'ClothingStore',
-  '@id': `${siteUrl}/#store`,
-  name: 'ROOTIE',
-  url: siteUrl,
-  image: `${siteUrl}/images/storefront-night.png`,
-  telephone: STORE.phone,
-  priceRange: '$$',
-  address: { '@type': 'PostalAddress', streetAddress: '4 Martiros Saryan St', addressLocality: 'Yerevan', postalCode: '0002', addressCountry: 'AM' },
-  geo: { '@type': 'GeoCoordinates', latitude: 40.1844, longitude: 44.5065 },
-  openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], opens: '11:00', closes: '22:00' }],
-  sameAs: [LINKS.instagram, LINKS.facebook, LINKS.telegramChannel],
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      url: siteUrl,
+      name: STORE.name,
+      inLanguage: ['ru-AM', 'en-AM', 'hy-AM'],
+      publisher: { '@id': `${siteUrl}/#store` },
+    },
+    {
+      '@type': ['LocalBusiness', 'ClothingStore', 'ShoeStore'],
+      '@id': `${siteUrl}/#store`,
+      name: STORE.name,
+      legalName: STORE.legalName,
+      description: STORE.description,
+      url: siteUrl,
+      image: [
+        `${siteUrl}/images/storefront-night.png`,
+        `${siteUrl}/images/sneaker-wall-full.jpg`,
+      ],
+      telephone: STORE.phone,
+      priceRange: STORE.priceRange,
+      currenciesAccepted: STORE.currency,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: STORE.streetAddress,
+        addressLocality: STORE.addressLocality,
+        addressRegion: STORE.addressRegion,
+        postalCode: STORE.postalCode,
+        addressCountry: STORE.addressCountry,
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: STORE.latitude,
+        longitude: STORE.longitude,
+      },
+      hasMap: LINKS.maps,
+      openingHoursSpecification: [
+        {
+          '@type': 'OpeningHoursSpecification',
+          dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+          opens: STORE.opens,
+          closes: STORE.closes,
+        },
+      ],
+      sameAs: [LINKS.instagram, LINKS.facebook, LINKS.telegramChannel],
+      areaServed: {
+        '@type': 'City',
+        name: 'Yerevan',
+        sameAs: 'https://www.wikidata.org/wiki/Q1953',
+      },
+      paymentAccepted: 'Cash, Credit Card',
+    },
+  ],
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

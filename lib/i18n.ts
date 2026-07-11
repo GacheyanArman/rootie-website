@@ -92,7 +92,7 @@ export const translations = {
       items: [
         { title: 'Travis Scott selection', excerpt: 'Редкие силуэты и коллаборации в свежем поступлении.', alt: 'Новая подборка кроссовок Travis Scott в Rootie' },
         { title: 'Summer streetwear', excerpt: 'Футболки, кепки и лёгкие слои для ереванского лета.', alt: 'Новое поступление streetwear и кепок в Rootie' },
-        { title: 'Bearbrick arrivals', excerpt: 'Коллекционные фигурки для тех, кто ищет необычные объекты.', alt: 'Новые коллекционные фигурки Bearbrick в Rootie' },
+        { title: 'Аксессуары', excerpt: 'Часы, сумки и другие акцентные детали из свежего поступления.', alt: 'Новое поступление аксессуаров в магазине Rootie' },
       ],
     },
     brandStory: {
@@ -204,7 +204,7 @@ export const translations = {
       items: [
         { title: 'Travis Scott selection', excerpt: 'Rare silhouettes and collaborations from our latest arrival.', alt: 'New Travis Scott sneaker selection at Rootie' },
         { title: 'Summer streetwear', excerpt: 'Tees, caps and light layers made for Yerevan summer.', alt: 'New streetwear and caps arrival at Rootie' },
-        { title: 'Bearbrick arrivals', excerpt: 'Collectible figures for those who seek uncommon objects.', alt: 'New collectible Bearbrick figures at Rootie' },
+        { title: 'Accessory arrivals', excerpt: 'Watches, bags and statement details from our latest arrival.', alt: 'New accessories at the Rootie store' },
       ],
     },
     brandStory: {
@@ -283,7 +283,7 @@ export const translations = {
         },
         {
           title: '2. Գրեք մեզ',
-          text: 'Ուղարկեք հաղորդագրություն Instagram-ում, Facebook-ում կամ Telegram / WhatsApp-ով — կհաստատենք չափսը, գինը և կպահենք ձեր զույգը։',
+          text: 'Ուղարկեք հաղ��րդագրություն Instagram-ում, Facebook-ում կամ Telegram / WhatsApp-ով — կհաստատենք չափսը, գինը և կպահենք ձեր զույգը։',
         },
         {
           title: '3. Ստացեք պատվերը',
@@ -319,7 +319,7 @@ export const translations = {
       items: [
         { title: 'Travis Scott ընտրանի', excerpt: 'Հազվագյուտ մոդելներ և համագործակցություններ՝ նոր համալրումից։', alt: 'Travis Scott կոշիկների նոր ընտրանին Rootie-ում' },
         { title: 'Ամառային streetwear', excerpt: 'Շապիկներ, գլխարկներ և թեթև հագուստ երևանյան ամռան համար։', alt: 'Streetwear-ի և գլխարկների նոր համալրում Rootie-ում' },
-        { title: 'Նոր Bearbrick-ներ', excerpt: 'Կոլեկցիոն ֆիգուրներ անսովոր իրեր փնտրողների համար։', alt: 'Bearbrick կոլեկցիոն ֆիգուրների նոր համալրում Rootie-ում' },
+        { title: 'Նոր աքսեսուարներ', excerpt: 'Ժամացույցներ, պայուսակներ և ընդգծված մանրուքներ՝ նոր համալրումից։', alt: 'Աքսեսուարների նոր համալրում Rootie խանութում' },
       ],
     },
     brandStory: {

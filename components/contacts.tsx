@@ -27,7 +27,7 @@ export function Contacts() {
           </div>
           <div className="h-80 overflow-hidden border border-border bg-card md:h-[560px] lg:h-full">
             <iframe
-              src="https://www.google.com/maps?q=4+Martiros+Saryan+St,+Yerevan+0002,+Armenia&output=embed"
+              src={`https://www.google.com/maps?q=${STORE.latitude},${STORE.longitude}&output=embed`}
               title="Rootie store location at 4 Martiros Saryan Street in Yerevan"
               loading="lazy"
               referrerPolicy="strict-origin-when-cross-origin"
