@@ -20,8 +20,20 @@ export function Contacts() {
         <div className="mt-20 grid gap-8 lg:grid-cols-2">
           <div className="grid border-t border-border sm:grid-cols-3 lg:grid-cols-1">
             {details.map(({ icon: Icon, label, value, href }) => {
-              const content = <><Icon className="size-5 text-primary" aria-hidden="true" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{label}</span><strong className="font-heading text-lg uppercase">{value}</strong>{href && <ArrowUpRight className="absolute right-5 top-5 size-5" aria-hidden="true" />}</>
-              const className = 'relative flex min-h-40 flex-col justify-between gap-3 border-b border-border py-5 transition-colors hover:bg-card sm:min-h-56 sm:border-r sm:px-5 lg:min-h-0 lg:flex-row lg:items-center lg:border-r-0 lg:px-5'
+              const content = (
+                <>
+                  <Icon className="size-5 text-primary lg:hidden" aria-hidden="true" />
+                  <div className="flex w-full flex-col gap-1 lg:flex-row lg:items-center lg:justify-between">
+                    <div className="flex items-center gap-3">
+                      <Icon className="hidden size-5 text-primary lg:block" aria-hidden="true" />
+                      <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{label}</span>
+                    </div>
+                    <strong className="font-heading text-lg uppercase">{value}</strong>
+                  </div>
+                  {href && <ArrowUpRight className="absolute right-5 top-5 size-5" aria-hidden="true" />}
+                </>
+              )
+              const className = 'relative flex min-h-40 flex-col justify-between gap-3 border-b border-border py-5 transition-colors hover:bg-card sm:min-h-56 sm:border-r sm:px-5 lg:min-h-0 lg:flex-row lg:items-center lg:border-r-0 lg:px-5 lg:py-8'
               return href ? <a key={label} href={href} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noopener noreferrer' : undefined} className={className}>{content}</a> : <div key={label} className={className}>{content}</div>
             })}
           </div>
