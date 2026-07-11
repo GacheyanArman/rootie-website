@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { ArrowDown, ArrowUpRight, MapPin } from 'lucide-react'
 import { useLanguage } from '@/components/language-provider'
 import { LINKS } from '@/lib/links'
+import { OpenStatus } from '@/components/open-status'
 
 export function Hero() {
   const { t } = useLanguage()
@@ -18,7 +19,7 @@ export function Hero() {
       <div className="relative mx-auto flex w-full max-w-[1600px] flex-1 flex-col justify-end px-4 pb-8 md:px-8 md:pb-12">
         <div className="animate-reveal mb-auto flex items-center justify-between gap-4 pt-5 text-[11px] font-semibold uppercase tracking-[.22em] text-foreground/80">
           <span>{t.hero.tagline}</span>
-          <span className="hidden items-center gap-2 sm:flex"><span className="size-2 rounded-full bg-primary" /> Open daily 11—22</span>
+          <span className="hidden sm:inline-flex"><OpenStatus /></span>
         </div>
 
         <div className="animate-reveal-delay grid items-end gap-8 lg:grid-cols-[1fr_330px]">

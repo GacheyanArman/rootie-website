@@ -24,7 +24,10 @@ export const translations = {
     },
     catalog: {
       title: 'ЧТО У НАС ЕСТЬ',
-      subtitle: 'Актуальное наличие, новинки и цены — всегда в Instagram и Telegram. Нажмите на категорию, чтобы посмотреть.',
+      subtitle: 'Актуальное наличие, новинки и цены — каталог обновляется автоматически.',
+      stockLow: 'Осталось мало',
+      stockOut: 'Нет в наличии',
+      fallback: 'Актуальный каталог сейчас смотри в Instagram',
       items: [
         {
           title: 'Кроссовки',
@@ -82,6 +85,37 @@ export const translations = {
       phone: 'Телефон',
       phoneNote: 'WhatsApp / Telegram',
     },
+    openStatus: { openNow: 'Открыто сейчас', closedNow: 'Сейчас закрыто' },
+    drops: {
+      title: 'ПОСЛЕДНИЕ ДРОПЫ',
+      subtitle: 'Новые пары, одежда и коллекционные находки — следите за свежими поступлениями.',
+      items: [
+        { title: 'Travis Scott selection', excerpt: 'Редкие силуэты и коллаборации в свежем поступлении.', alt: 'Новая подборка кроссовок Travis Scott в Rootie' },
+        { title: 'Summer streetwear', excerpt: 'Футболки, кепки и лёгкие слои для ереванского лета.', alt: 'Новое поступление streetwear и кепок в Rootie' },
+        { title: 'Bearbrick arrivals', excerpt: 'Коллекционные фигурки для тех, кто ищет необычные объекты.', alt: 'Новые коллекционные фигурки Bearbrick в Rootie' },
+      ],
+    },
+    brandStory: {
+      title: 'КУЛЬТУРА, А НЕ ПРОСТО ВЕЩИ',
+      paragraphs: [
+        'ROOTIE появился в Ереване как место для тех, кто ценит происхождение, историю и детали каждой вещи.',
+        'Мы проверяем подлинность каждого товара и собираем выборку, которую хочется носить и коллекционировать.',
+        'В наш магазин заглядывают местные ценители и известные гости города — но атмосфера всегда остаётся открытой и своей.',
+      ],
+      promise: 'Гарантия оригинальности',
+      imageAlt: 'Интерьер и стойка магазина Rootie в Ереване',
+    },
+    faq: {
+      title: 'ЧАСТЫЕ ВОПРОСЫ',
+      items: [
+        { question: 'Все товары оригинальные?', answer: 'Да. Мы работаем только с оригинальными товарами и проверяем происхождение каждой позиции до её появления в магазине.' },
+        { question: 'Можно примерить перед покупкой?', answer: 'Конечно. Приходите в магазин на Saryan 4 — команда поможет подобрать размер и спокойно примерить вещь.' },
+        { question: 'Есть доставка?', answer: 'Доставляем по Армении. Международную доставку согласуем индивидуально — напишите нам страну и интересующий товар.' },
+        { question: 'Как можно оплатить?', answer: 'В магазине доступны наличная и безналичная оплата. Для доставки команда подскажет актуальный способ при подтверждении заказа.' },
+        { question: 'Можно вернуть или обменять?', answer: 'Условия зависят от категории и состояния товара. Свяжитесь с нами до покупки или сразу после получения, чтобы уточнить детали.' },
+        { question: 'Где смотреть актуальное наличие?', answer: 'Свежие поступления и доступные размеры публикуем в Instagram и Telegram. Можно также написать нам напрямую.' },
+      ],
+    },
     footer: {
       line: '@rootie.yerevan · Saryan 4, Ереван · Ежедневно 11:00 – 22:00',
     },
@@ -103,7 +137,10 @@ export const translations = {
     },
     catalog: {
       title: 'WHAT WE HAVE',
-      subtitle: 'Current stock, new arrivals and prices — always on Instagram and Telegram. Tap a category to browse.',
+      subtitle: 'Current stock, new arrivals and prices — this catalog updates automatically.',
+      stockLow: 'Low stock',
+      stockOut: 'Out of stock',
+      fallback: 'See the current catalog on Instagram',
       items: [
         {
           title: 'Sneakers',
@@ -160,6 +197,37 @@ export const translations = {
       phone: 'Phone',
       phoneNote: 'WhatsApp / Telegram',
     },
+    openStatus: { openNow: 'Open now', closedNow: 'Closed now' },
+    drops: {
+      title: 'LATEST DROPS',
+      subtitle: 'Fresh sneakers, streetwear and collectible finds — follow the newest arrivals.',
+      items: [
+        { title: 'Travis Scott selection', excerpt: 'Rare silhouettes and collaborations from our latest arrival.', alt: 'New Travis Scott sneaker selection at Rootie' },
+        { title: 'Summer streetwear', excerpt: 'Tees, caps and light layers made for Yerevan summer.', alt: 'New streetwear and caps arrival at Rootie' },
+        { title: 'Bearbrick arrivals', excerpt: 'Collectible figures for those who seek uncommon objects.', alt: 'New collectible Bearbrick figures at Rootie' },
+      ],
+    },
+    brandStory: {
+      title: 'CULTURE, NOT JUST THINGS',
+      paragraphs: [
+        'ROOTIE began in Yerevan as a place for people who value the origin, story and detail behind every piece.',
+        'We authenticate every item and curate a selection made to be worn, kept and collected.',
+        'Local enthusiasts and well-known visitors to the city stop by — while the atmosphere always stays open and personal.',
+      ],
+      promise: 'Authenticity guaranteed',
+      imageAlt: 'Interior and counter of the Rootie store in Yerevan',
+    },
+    faq: {
+      title: 'FREQUENTLY ASKED',
+      items: [
+        { question: 'Are all items authentic?', answer: 'Yes. We only carry authentic products and verify the origin of every item before it reaches the store.' },
+        { question: 'Can I try items on first?', answer: 'Absolutely. Visit us at Saryan 4 and our team will help with sizing and let you try everything comfortably.' },
+        { question: 'Do you offer delivery?', answer: 'We deliver across Armenia. International delivery is arranged individually — message us with your country and chosen item.' },
+        { question: 'How can I pay?', answer: 'Cash and card payments are available in store. For delivery orders, our team will confirm the current payment option.' },
+        { question: 'Can I return or exchange?', answer: 'Terms depend on the product category and condition. Contact us before purchase or promptly after delivery for the exact details.' },
+        { question: 'Where can I see current stock?', answer: 'We publish new arrivals and available sizes on Instagram and Telegram. You can also message us directly.' },
+      ],
+    },
     footer: {
       line: '@rootie.yerevan · Saryan 4, Yerevan · Daily 11:00 – 22:00',
     },
@@ -181,8 +249,10 @@ export const translations = {
     },
     catalog: {
       title: 'ԻՆՉ ՈՒՆԵՆՔ',
-      subtitle:
-        'Առկա տեսականին, նորույթներն ու գները՝ միշտ Instagram-ում և Telegram-ում։ Սեղմեք կատեգորիայի վրա՝ դիտելու համար։',
+      subtitle: 'Առկա տեսականին, նորույթներն ու գները՝ կատալոգը թարմացվում է ինքնաշխատ։',
+      stockLow: 'Քիչ է մնացել',
+      stockOut: 'Առկա չէ',
+      fallback: 'Արդի կատալոգը հիմա դիտեք Instagram-ում',
       items: [
         {
           title: 'Սպորտային կոշիկներ',
@@ -213,11 +283,11 @@ export const translations = {
         },
         {
           title: '2. Գրեք մեզ',
-          text: 'Ուղարկեք հաղորդագրություն Instagram-ում, Facebook-ում կամ Telegram / WhatsApp-ով — կհաստատենք չափսը, գինը և կպահենք ձեր զույգը։',
+          text: 'Ուղարկեք հաղորդագրություն Instagram-ում, Facebook-ում կամ Telegram / WhatsApp-ով — կհաստ��տենք չափսը, գինը և կպահենք ձեր զույգը։',
         },
         {
           title: '3. Ստացեք պատվերը',
-          text: 'Այցելեք խանութ Սարյան 4 հասցեով՝ փորձելու համար, կամ պատվիրեք առաքում — ինչպես ձեզ հարմար է։',
+          text: 'Այցելեք խանութ Սարյան 4 հասցեո��՝ փորձելու համար, կամ պատվիրեք առաքում — ինչպես ձեզ հարմար է։',
         },
       ],
       writeInstagram: 'Գրել Instagram-ում',
@@ -241,6 +311,37 @@ export const translations = {
       hoursValue: 'Ամեն օր 11:00 – 22:00',
       phone: 'Հեռախոս',
       phoneNote: 'WhatsApp / Telegram',
+    },
+    openStatus: { openNow: 'Բաց է հիմա', closedNow: 'Փակ է հիմա' },
+    drops: {
+      title: 'ՎԵՐՋԻՆ ՆՈՐՈՒՅԹՆԵՐԸ',
+      subtitle: 'Նոր կոշիկներ, streetwear և կոլեկցիոն գտածոներ՝ հետևեք վերջին համալրումներին։',
+      items: [
+        { title: 'Travis Scott ընտրանի', excerpt: 'Հազվագյուտ մոդելներ և համագործակցություններ՝ նոր համալրումից։', alt: 'Travis Scott կոշիկների նոր ընտրանին Rootie-ում' },
+        { title: 'Ամառային streetwear', excerpt: 'Շապիկներ, գլխարկներ և թեթև հագուստ երևանյան ամռան համար։', alt: 'Streetwear-ի և գլխարկների նոր համալրում Rootie-ում' },
+        { title: 'Նոր Bearbrick-ներ', excerpt: 'Կոլեկցիոն ֆիգուրներ անսովոր իրեր փնտրողների համար։', alt: 'Bearbrick կոլեկցիոն ֆիգուրների նոր համալրում Rootie-ում' },
+      ],
+    },
+    brandStory: {
+      title: 'ՄՇԱԿՈՒՅԹ, ՈՉ ՄԻԱՅՆ ԻՐԵՐ',
+      paragraphs: [
+        'ROOTIE-ն ստեղծվել է Երևանում նրանց համար, ովքեր գնահատում են յուրաքանչյուր իրի ծագումը, պատմությունն ու մանրուքները։',
+        'Մենք ստուգում ենք յուրաքանչյուր ապրանքի իսկությունը և ձևավորում ընտրանի, որը ցանկանում ես կրել ու հավաքածուում պահել։',
+        'Մեզ այցելում են տեղացի սիրահարներ և քաղաքի հայտնի հյուրեր, իսկ մթնոլորտը միշտ մնում է բաց ու հարազատ։',
+      ],
+      promise: 'Իսկության երաշխիք',
+      imageAlt: 'Rootie խանութի ինտերիերն ու դրամարկղը Երևանում',
+    },
+    faq: {
+      title: 'ՀԱՃԱԽ ՏՐՎՈՂ ՀԱՐՑԵՐ',
+      items: [
+        { question: 'Բոլոր ապրանքներն օրիգինա՞լ են', answer: 'Այո։ Մենք առաջարկում ենք միայն օրիգինալ ապրանքներ և ստուգում ենք յուրաքանչյուր իրի ծագումը մինչև խանութում ներկայացնելը։' },
+        { question: 'Կարո՞ղ եմ փորձել մինչև գնելը', answer: 'Իհարկե։ Այցելեք մեզ Սարյան 4 հասցեով, և թիմը կօգնի ընտրել չափսն ու հանգիստ փորձել ապրանքը։' },
+        { question: 'Առաքում ունե՞ք', answer: 'Առաքում ենք ամբողջ Հայաստանում։ Միջազգային առաքումը համաձայնեցնում ենք անհատապես՝ գրեք երկիրը և ընտրված ապրանքը։' },
+        { question: 'Ինչպե՞ս կարելի է վճարել', answer: 'Խանութում հասանելի են կանխիկ և անկանխիկ վճարումներ։ Առաքման դեպքում թիմը կհաստատի վճարման գործող տարբերակը։' },
+        { question: 'Կարո՞ղ եմ վերադարձնել կամ փոխանակել', answer: 'Պայմանները կախված են ապրանքի տեսակից և վիճակից։ Մանրամասների համար կապվեք մեզ հետ գնումից առաջ կամ ստանալուց անմիջապես հետո։' },
+        { question: 'Որտե՞ղ տեսնել առկա տեսականին', answer: 'Նորույթներն ու առկա չափսերը հրապարակում ենք Instagram-ում և Telegram-ում։ Կարող եք նաև գրել մեզ ուղիղ։' },
+      ],
     },
     footer: {
       line: '@rootie.yerevan · Սարյան 4, Երևան · Ամեն օր 11:00 – 22:00',

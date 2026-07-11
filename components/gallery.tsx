@@ -10,7 +10,7 @@ export function Gallery() {
   return (
     <section id="gallery" className="mx-auto max-w-[1600px] px-4 py-24 md:px-8 md:py-36">
       <div className="grid gap-8 border-t border-border pt-6 md:grid-cols-12">
-        <p className="text-xs font-bold uppercase tracking-[.2em] text-primary md:col-span-3">03 / Saryan 4</p>
+        <p className="text-xs font-bold uppercase tracking-[.2em] text-primary md:col-span-3">04 / Saryan 4</p>
         <div className="md:col-span-9"><h2 className="font-heading text-5xl font-black uppercase leading-[.88] tracking-[-.06em] sm:text-7xl lg:text-9xl">{t.gallery.title}</h2><p className="mt-6 max-w-xl leading-relaxed text-muted-foreground">{t.gallery.subtitle}</p></div>
       </div>
       <div className="mt-16 grid gap-4 md:mt-24 md:grid-cols-12 md:grid-rows-[360px_360px]">

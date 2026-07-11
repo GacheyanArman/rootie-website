@@ -11,16 +11,29 @@ export function Contacts() {
     { icon: Clock, label: t.contacts.hours, value: t.contacts.hoursValue },
     { icon: Phone, label: t.contacts.phone, value: STORE.phone, href: LINKS.phone },
   ]
+
   return (
     <section id="contacts" className="relative overflow-hidden border-t border-border">
       <div className="mx-auto max-w-[1600px] px-4 py-24 md:px-8 md:py-36">
-        <p className="text-xs font-bold uppercase tracking-[.2em] text-primary">04 / Come through</p>
+        <p className="text-xs font-bold uppercase tracking-[.2em] text-primary">07 / Come through</p>
         <h2 className="mt-8 max-w-6xl font-heading text-[16vw] font-black uppercase leading-[.72] tracking-[-.08em] text-balance sm:text-[13vw] lg:text-[10vw]">{t.contacts.title}</h2>
-        <div className="mt-20 grid border-t border-border md:grid-cols-3">
-          {details.map(({ icon: Icon, label, value, href }) => {
-            const content = <><Icon className="size-5 text-primary" aria-hidden="true" /><span className="mt-10 text-xs font-bold uppercase tracking-widest text-muted-foreground">{label}</span><strong className="mt-3 max-w-xs font-heading text-xl uppercase">{value}</strong>{href && <ArrowUpRight className="absolute right-6 top-6 size-5" />}</>
-            return href ? <a key={label} href={href} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noopener noreferrer' : undefined} className="relative flex min-h-56 flex-col border-b border-border py-6 transition-colors hover:bg-card md:border-b-0 md:border-r md:px-6 md:first:pl-0 md:last:border-r-0">{content}</a> : <div key={label} className="relative flex min-h-56 flex-col border-b border-border py-6 md:border-b-0 md:border-r md:px-6">{content}</div>
-          })}
+        <div className="mt-20 grid gap-8 lg:grid-cols-2">
+          <div className="grid border-t border-border sm:grid-cols-3 lg:grid-cols-1">
+            {details.map(({ icon: Icon, label, value, href }) => {
+              const content = <><Icon className="size-5 text-primary" aria-hidden="true" /><span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{label}</span><strong className="font-heading text-lg uppercase">{value}</strong>{href && <ArrowUpRight className="absolute right-5 top-5 size-5" aria-hidden="true" />}</>
+              const className = 'relative flex min-h-40 flex-col justify-between gap-3 border-b border-border py-5 transition-colors hover:bg-card sm:min-h-56 sm:border-r sm:px-5 lg:min-h-0 lg:flex-row lg:items-center lg:border-r-0 lg:px-5'
+              return href ? <a key={label} href={href} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noopener noreferrer' : undefined} className={className}>{content}</a> : <div key={label} className={className}>{content}</div>
+            })}
+          </div>
+          <div className="h-80 overflow-hidden border border-border bg-card md:h-[560px] lg:h-full">
+            <iframe
+              src="https://www.google.com/maps?q=4+Martiros+Saryan+St,+Yerevan+0002,+Armenia&output=embed"
+              title="Rootie store location at 4 Martiros Saryan Street in Yerevan"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="size-full grayscale contrast-125"
+            />
+          </div>
         </div>
         <div className="mt-12 flex flex-col gap-3 sm:flex-row">
           <a href={LINKS.instagram} target="_blank" rel="noopener noreferrer" className="flex flex-1 items-center justify-between bg-primary px-6 py-5 font-heading text-lg font-black uppercase text-primary-foreground transition-transform hover:-translate-y-1">Instagram <ArrowUpRight className="size-5" /></a>
