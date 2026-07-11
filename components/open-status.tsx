@@ -32,7 +32,7 @@ export function OpenStatus() {
 
   return (
     <span className="inline-flex items-center gap-2" aria-live="polite">
-      <span className={`size-2 rounded-full ${open ? 'bg-primary animate-pulse' : 'bg-muted-foreground'}`} aria-hidden="true" />
+      {open !== false && <span className={`size-2 rounded-full ${open ? 'bg-primary animate-pulse' : 'bg-muted-foreground'}`} aria-hidden="true" />}
       {open === null ? t.contacts.hoursValue : open ? t.openStatus.openNow : t.openStatus.closedNow}
     </span>
   )
