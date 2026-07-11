@@ -58,27 +58,18 @@ function parseTrustedImageUrl(value: string) {
 }
 
 async function fetchTrustedCsv(initialUrl: URL, signal: AbortSignal) {
-  let currentUrl = initialUrl
+  const response = await fetch(initialUrl, {
+    cache: 'no-store',
+    redirect: 'follow',
+    signal,
+    headers: { Accept: 'text/csv,text/plain;q=0.9' },
+  })
 
-  for (let redirectCount = 0; redirectCount <= MAX_REDIRECTS; redirectCount += 1) {
-    const response = await fetch(currentUrl, {
-      cache: 'no-store',
-      redirect: 'manual',
-      signal,
-      headers: { Accept: 'text/csv,text/plain;q=0.9' },
-    })
-
-    if (response.status >= 300 && response.status < 400) {
-      const location = response.headers.get('location')
-      if (!location || redirectCount === MAX_REDIRECTS) throw new Error('Invalid catalog redirect')
-      currentUrl = parseTrustedCatalogUrl(new URL(location, currentUrl).toString())
-      continue
-    }
-
-    return response
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status} from Google Sheets`)
   }
 
-  throw new Error('Too many catalog redirects')
+  return response
 }
 
 async function readLimitedText(response: Response) {
@@ -111,7 +102,17 @@ function cleanText(value: string | undefined, maxLength: number) {
 
 export async function getCatalogItems(): Promise<CatalogItem[]> {
   const configuredUrl = process.env.CATALOG_SHEET_CSV_URL
-  if (!configuredUrl) return []
+  if (!configuredUrl) {
+    return [{
+      name: 'ERROR: CATALOG_SHEET_CSV_URL is not set in Vercel Environment Variables',
+      category: 'DEBUG',
+      price: 0,
+      stock: 'available',
+      image: 'https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?q=80&w=800&auto=format&fit=crop',
+      sizes: [],
+      featured: false
+    }]
+  }
 
   const controller = new AbortController()
   const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS)
@@ -161,8 +162,16 @@ export async function getCatalogItems(): Promise<CatalogItem[]> {
         }
       })
       .sort((a: CatalogItem, b: CatalogItem) => Number(b.featured) - Number(a.featured))
-  } catch {
-    return []
+  } catch (error: any) {
+    return [{
+      name: `ERROR: ${error?.message || 'Unknown fetching error'}`,
+      category: 'DEBUG',
+      price: 0,
+      stock: 'available',
+      image: 'https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?q=80&w=800&auto=format&fit=crop',
+      sizes: [],
+      featured: false
+    }]
   } finally {
     clearTimeout(timeout)
   }

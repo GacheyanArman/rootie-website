@@ -19,6 +19,7 @@ export const metadata: Metadata = {
   category: 'shopping',
   keywords: ['sneakers Yerevan', 'sneaker store Yerevan', 'streetwear Armenia', 'original sneakers Armenia', 'Rootie Yerevan', 'кроссовки Ереван', 'магазин кроссовок Ереван', 'оригинальные кроссовки Армения', 'streetwear Ереван'],
   alternates: { canonical: '/', languages: { 'ru-AM': '/', 'x-default': '/' } },
+  icons: { icon: '/rootie.jpg', apple: '/rootie.jpg' },
   openGraph: {
     type: 'website',
     url: siteUrl,
