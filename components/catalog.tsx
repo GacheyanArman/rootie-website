@@ -6,9 +6,9 @@ import { useLanguage } from '@/components/language-provider'
 import { LINKS } from '@/lib/links'
 
 const ITEMS = [
-  { image: '/images/travis-scott.png', span: 'md:col-span-7', ratio: 'aspect-[4/5] md:aspect-[5/4]' },
-  { image: '/images/clothing-area.png', span: 'md:col-span-5 md:mt-28', ratio: 'aspect-[4/5]' },
-  { image: '/images/bearbricks.png', span: 'md:col-span-6 md:col-start-4', ratio: 'aspect-[4/3]' },
+  { image: '/images/travis-scott.jpg', span: 'md:col-span-7', ratio: 'aspect-[4/5] md:aspect-[5/4]' },
+  { image: '/images/clothing-area.jpg', span: 'md:col-span-5 md:mt-28', ratio: 'aspect-[4/5]' },
+  { image: '/images/bearbricks.jpg', span: 'md:col-span-6 md:col-start-4', ratio: 'aspect-[4/3]' },
 ]
 
 export function Catalog() {

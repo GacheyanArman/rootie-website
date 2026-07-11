@@ -45,11 +45,15 @@ export function Hero() {
         </a>
       </div>
 
-      <div className="relative overflow-hidden border-y border-foreground/15 bg-primary py-3 text-primary-foreground">
-        <div className="marquee-track flex gap-8 whitespace-nowrap font-heading text-sm font-black uppercase tracking-[.18em]">
-          {[...Array(2)].map((_, group) => (
-            <div key={group} className="flex gap-8" aria-hidden={group === 1}>
-              <span>Original sneakers</span><span>/</span><span>Rare drops</span><span>/</span><span>Streetwear</span><span>/</span><span>Yerevan</span><span>/</span>
+      <div className="relative flex overflow-hidden border-y border-foreground/15 bg-primary py-3 text-primary-foreground">
+        <div className="marquee-track flex whitespace-nowrap font-heading text-sm font-black uppercase tracking-[.18em]">
+          {[...Array(2)].map((_, half) => (
+            <div key={half} className="flex" aria-hidden={half === 1}>
+              {[...Array(6)].map((_, rep) => (
+                <div key={rep} className="flex gap-8 pr-8">
+                  <span>Original sneakers</span><span>/</span><span>Rare drops</span><span>/</span><span>Streetwear</span><span>/</span><span>Yerevan</span><span>/</span>
+                </div>
+              ))}
             </div>
           ))}
         </div>
