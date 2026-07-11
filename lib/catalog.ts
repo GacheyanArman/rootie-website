@@ -125,15 +125,14 @@ export async function getCatalogItems(): Promise<CatalogItem[]> {
     if (contentType && !contentType.includes('text/') && !contentType.includes('csv')) return []
 
     const csv = await readLimitedText(response)
-    const { data, errors } = Papa.parse<Record<string, string>>(csv, {
+    const { data } = Papa.parse<Record<string, string>>(csv, {
       header: true,
       skipEmptyLines: true,
     })
-    if (errors.some((error) => error.type === 'Quotes')) return []
 
     return data
       .slice(0, MAX_CATALOG_ROWS)
-      .flatMap((row): CatalogItem[] => {
+      .flatMap((row: Record<string, string>): CatalogItem[] => {
         const name = cleanText(row.name, 120)
         if (!name || !row.image) return []
 
@@ -152,7 +151,7 @@ export async function getCatalogItems(): Promise<CatalogItem[]> {
             image: parseTrustedImageUrl(row.image),
             sizes: (row.sizes ?? '')
               .split(',')
-              .map((size) => cleanText(size, 20))
+              .map((size: string) => cleanText(size, 20))
               .filter(Boolean)
               .slice(0, 20),
             featured: cleanText(row.featured, 10).toLowerCase() === 'yes',
@@ -161,7 +160,7 @@ export async function getCatalogItems(): Promise<CatalogItem[]> {
           return []
         }
       })
-      .sort((a, b) => Number(b.featured) - Number(a.featured))
+      .sort((a: CatalogItem, b: CatalogItem) => Number(b.featured) - Number(a.featured))
   } catch {
     return []
   } finally {

@@ -8,21 +8,21 @@ const inter = Inter({ subsets: ['latin', 'cyrillic'], variable: '--font-inter' }
 const archivo = Archivo({ subsets: ['latin'], weight: ['600', '700', '800', '900'], variable: '--font-archivo' })
 
 const siteUrl = 'https://rootie.am'
-const title = 'Магазин оригинальных кроссовок в Ереване | ROOTIE'
-const description = 'ROOTIE — магазин оригинальных кроссовок, стритвира и коллекционных аксессуаров по адресу Сарьяна 4 в Ереване. Ежедневно 11:00–22:00.'
+const title = 'rootie'
+const description = 'rootie — магазин оригинальных кроссовок, стритвира и коллекционных аксессуаров по адресу Сарьяна 4 в Ереване. Ежедневно 11:00–22:00.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title,
   description,
-  applicationName: 'ROOTIE',
+  applicationName: 'rootie',
   category: 'shopping',
   keywords: ['sneakers Yerevan', 'sneaker store Yerevan', 'streetwear Armenia', 'original sneakers Armenia', 'Rootie Yerevan', 'кроссовки Ереван', 'магазин кроссовок Ереван', 'оригинальные кроссовки Армения', 'streetwear Ереван'],
   alternates: { canonical: '/', languages: { 'ru-AM': '/', 'x-default': '/' } },
   openGraph: {
     type: 'website',
     url: siteUrl,
-    siteName: 'ROOTIE',
+    siteName: 'rootie',
     title,
     description,
     locale: 'ru_AM',

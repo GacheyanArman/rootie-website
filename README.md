@@ -1,40 +1,40 @@
-# Rootie — Landing Website
+# rootie — Landing Website
 
 ## Overview
 
-Rootie is a lightweight, multilingual Next.js landing site designed to showcase a product catalog, gallery, and contact information.
+rootie is a lightweight, multilingual Next.js landing site designed to showcase a product catalog, gallery, and contact information.
 
 ## Tech stack
 
 - Next.js (App Router)
 - TypeScript
 - PostCSS
-- pnpm
+- npm
 
 ## Quick start
 
 Install dependencies:
 
 ```bash
-pnpm install
+npm install
 ```
 
 Run development server:
 
 ```bash
-pnpm dev
+npm run dev
 ```
 
 Build for production:
 
 ```bash
-pnpm build
+npm run build
 ```
 
 Start production server:
 
 ```bash
-pnpm start
+npm start
 ```
 
 ## Project structure
