@@ -43,7 +43,6 @@ export function CatalogGrid({ items }: { items: CatalogItem[] }) {
                 src={item.image}
                 alt={item.name}
                 fill
-                unoptimized
                 sizes="(min-width: 768px) 400px, 85vw"
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               />

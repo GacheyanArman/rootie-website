@@ -28,14 +28,17 @@
     "@types/papaparse": "^5.5.2",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "postcss": "^8.5",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.2.10",
+    "postcss": "^8.5.17",
     "sharp": "^0.35.3",
     "tailwindcss": "^4.2.0",
     "typescript": "5.7.3"
   },
   "pnpm": {
     "overrides": {
-      "hono": "4.12.25"
+      "hono": "4.12.25",
+      "postcss": "^8.5.17"
     }
   }
 }

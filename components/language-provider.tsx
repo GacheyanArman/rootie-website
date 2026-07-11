@@ -11,17 +11,8 @@ type LanguageContextValue = {
 
 const LanguageContext = createContext<LanguageContextValue | null>(null)
 
-const STORAGE_KEY = 'rootie-lang'
-
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLangState] = useState<Lang>('ru')
-
-  useEffect(() => {
-    const saved = window.localStorage.getItem(STORAGE_KEY)
-    if (saved === 'ru' || saved === 'en' || saved === 'hy') {
-      setLangState(saved)
-    }
-  }, [])
 
   useEffect(() => {
     document.documentElement.lang = lang
@@ -29,7 +20,6 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   const setLang = useCallback((next: Lang) => {
     setLangState(next)
-    window.localStorage.setItem(STORAGE_KEY, next)
   }, [])
 
   return (

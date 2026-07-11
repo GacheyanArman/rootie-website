@@ -30,7 +30,8 @@ export function Contacts() {
               src="https://www.google.com/maps?q=4+Martiros+Saryan+St,+Yerevan+0002,+Armenia&output=embed"
               title="Rootie store location at 4 Martiros Saryan Street in Yerevan"
               loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
+              referrerPolicy="strict-origin-when-cross-origin"
+              sandbox="allow-scripts allow-same-origin allow-popups"
               className="size-full grayscale contrast-125"
             />
           </div>
