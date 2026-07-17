@@ -1,6 +1,7 @@
-import { randomUUID, timingSafeEqual } from 'node:crypto'
+import { randomUUID } from 'node:crypto'
 import { NextResponse } from 'next/server'
 import { getCatalogBucket, getSupabaseAdmin, hasSupabaseConfig } from '@/lib/supabase-admin'
+import { assertSameOrigin, isAdminAuthenticated } from '@/lib/admin-auth'
 
 export const runtime = 'nodejs'
 
@@ -15,14 +16,19 @@ function cleanText(value: FormDataEntryValue | null, maxLength: number) {
     : ''
 }
 
-function safeSecretMatches(received: string, expected: string) {
-  const left = Buffer.from(received)
-  const right = Buffer.from(expected)
-  return left.length === right.length && timingSafeEqual(left, right)
+function error(message: string, status: number) {
+  return NextResponse.json({ message }, { status, headers: { 'Cache-Control': 'no-store' } })
 }
 
-function error(message: string, status: number, details?: string) {
-  return NextResponse.json({ message, ...(details ? { details } : {}) }, { status })
+async function requireAdminRequest() {
+  return (await assertSameOrigin()) && (await isAdminAuthenticated())
+}
+
+function hasValidImageSignature(buffer: Buffer, mimeType: string) {
+  if (mimeType === 'image/jpeg') return buffer.length >= 3 && buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff
+  if (mimeType === 'image/png') return buffer.length >= 8 && buffer.subarray(0, 8).equals(Buffer.from([0x89,0x50,0x4e,0x47,0x0d,0x0a,0x1a,0x0a]))
+  if (mimeType === 'image/webp') return buffer.length >= 12 && buffer.subarray(0, 4).toString('ascii') === 'RIFF' && buffer.subarray(8, 12).toString('ascii') === 'WEBP'
+  return false
 }
 
 function requireConfigured() {
@@ -43,7 +49,8 @@ export async function GET() {
       .limit(500)
 
     if (queryError) {
-      return error('Не удалось загрузить список товаров.', 502, queryError.message)
+      console.error('Catalog query failed:', queryError.message)
+      return error('Не удалось загрузить список товаров.', 502)
     }
 
     return NextResponse.json({ items: data ?? [] })
@@ -56,8 +63,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const adminPassword = process.env.CATALOG_ADMIN_PASSWORD
-  if (!adminPassword) return error('Пароль администратора не настроен на сервере.', 503)
+  if (!(await requireAdminRequest())) return error('Требуется авторизация администратора.', 401)
 
   let supabase
   try {
@@ -71,11 +77,6 @@ export async function POST(request: Request) {
     formData = await request.formData()
   } catch {
     return error('Не удалось прочитать форму.', 400)
-  }
-
-  const password = cleanText(formData.get('password'), 200)
-  if (!password || !safeSecretMatches(password, adminPassword)) {
-    return error('Неверный пароль администратора.', 401)
   }
 
   const name = cleanText(formData.get('name'), 120)
@@ -112,6 +113,9 @@ export async function POST(request: Request) {
   const imagePath = `products/${new Date().toISOString().slice(0, 10)}/${Date.now()}-${randomUUID()}.${extension}`
   const bucket = getCatalogBucket()
   const imageBuffer = Buffer.from(await image.arrayBuffer())
+  if (!hasValidImageSignature(imageBuffer, image.type)) {
+    return error('Содержимое файла не соответствует формату изображения.', 400)
+  }
 
   const { error: uploadError } = await supabase.storage
     .from(bucket)
@@ -122,7 +126,8 @@ export async function POST(request: Request) {
     })
 
   if (uploadError) {
-    return error('Не удалось загрузить фотографию.', 502, uploadError.message)
+    console.error('Catalog image upload failed:', uploadError.message)
+    return error('Не удалось загрузить фотографию.', 502)
   }
 
   const { data: publicUrlData } = supabase.storage.from(bucket).getPublicUrl(imagePath)
@@ -151,7 +156,8 @@ export async function POST(request: Request) {
 
   if (insertError) {
     await supabase.storage.from(bucket).remove([imagePath])
-    return error('Фото загрузилось, но товар не удалось сохранить.', 502, insertError.message)
+    console.error('Catalog insert failed:', insertError.message)
+    return error('Фото загрузилось, но товар не удалось сохранить.', 502)
   }
 
   return NextResponse.json({
@@ -161,8 +167,7 @@ export async function POST(request: Request) {
 }
 
 export async function DELETE(request: Request) {
-  const adminPassword = process.env.CATALOG_ADMIN_PASSWORD
-  if (!adminPassword) return error('Пароль администратора не настроен на сервере.', 503)
+  if (!(await requireAdminRequest())) return error('Требуется авторизация администратора.', 401)
 
   let supabase
   try {
@@ -171,7 +176,7 @@ export async function DELETE(request: Request) {
     return error('Supabase ещё не настроен.', 503)
   }
 
-  let body: { id?: string; password?: string }
+  let body: { id?: string }
   try {
     body = await request.json()
   } catch {
@@ -179,11 +184,6 @@ export async function DELETE(request: Request) {
   }
 
   const id = typeof body.id === 'string' ? body.id.trim() : ''
-  const password = typeof body.password === 'string' ? body.password : ''
-
-  if (!password || !safeSecretMatches(password, adminPassword)) {
-    return error('Неверный пароль администратора.', 401)
-  }
   if (!UUID_PATTERN.test(id)) return error('Некорректный идентификатор товара.', 400)
 
   const { data: existing, error: findError } = await supabase
@@ -195,7 +195,10 @@ export async function DELETE(request: Request) {
   if (findError || !existing) return error('Товар не найден.', 404)
 
   const { error: deleteError } = await supabase.from('catalog_items').delete().eq('id', id)
-  if (deleteError) return error('Не удалось удалить товар.', 502, deleteError.message)
+  if (deleteError) {
+    console.error('Catalog delete failed:', deleteError.message)
+    return error('Не удалось удалить товар.', 502)
+  }
 
   if (existing.image_path) {
     await supabase.storage.from(getCatalogBucket()).remove([existing.image_path])

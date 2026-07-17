@@ -1,7 +1,7 @@
-import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { AdminLoginForm } from '@/components/admin-login-form'
 import { LanguageProvider } from '@/components/language-provider'
+import { isAdminAuthenticated } from '@/lib/admin-auth'
 
 export const metadata = {
   title: 'Вход в панель | ROOTIE',
@@ -9,8 +9,7 @@ export const metadata = {
 }
 
 export default async function AdminPage() {
-  const cookieStore = await cookies()
-  const isAuthenticated = cookieStore.get('admin_auth')?.value === 'true'
+  const isAuthenticated = await isAdminAuthenticated()
 
   if (isAuthenticated) {
     redirect('/admin/catalog')

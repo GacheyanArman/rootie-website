@@ -107,3 +107,12 @@ npm run build
 - `lib/supabase-admin.ts` — серверное подключение к Supabase;
 - `lib/catalog.ts` — загрузка каталога только из Supabase;
 - `supabase/catalog.sql` — настройка базы и хранилища.
+
+## Security configuration
+
+Set these production environment variables with different, randomly generated values:
+
+- `CATALOG_ADMIN_PASSWORD` — at least 12 characters.
+- `ADMIN_SESSION_SECRET` — at least 32 random characters; never expose it with a `NEXT_PUBLIC_` prefix.
+
+After changing either value, redeploy the application. Existing admin sessions expire automatically after 8 hours.

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
-import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { CatalogAdminForm } from '@/components/catalog-admin-form'
 import { LanguageProvider } from '@/components/language-provider'
+import { isAdminAuthenticated } from '@/lib/admin-auth'
 
 export const metadata: Metadata = {
   title: 'Управление каталогом | ROOTIE',
@@ -10,8 +10,7 @@ export const metadata: Metadata = {
 }
 
 export default async function CatalogAdminPage() {
-  const cookieStore = await cookies()
-  const isAuthenticated = cookieStore.get('admin_auth')?.value === 'true'
+  const isAuthenticated = await isAdminAuthenticated()
 
   if (!isAuthenticated) {
     redirect('/admin')

@@ -5,7 +5,6 @@ import {
   CheckCircle2,
   ImagePlus,
   Loader2,
-  LockKeyhole,
   RefreshCw,
   RotateCcw,
   Trash2,
@@ -53,7 +52,6 @@ const initialFields = {
   sizes: '',
   featured: false,
   link: '',
-  password: '',
 }
 
 export function CatalogAdminForm() {
@@ -154,8 +152,8 @@ export function CatalogAdminForm() {
     void chooseImage(event.dataTransfer.files?.[0])
   }
 
-  const resetProduct = (keepPassword = true) => {
-    setFields((current) => ({ ...initialFields, password: keepPassword ? current.password : '' }))
+  const resetProduct = () => {
+    setFields(initialFields)
     setImage(null)
     setStatus({ type: 'idle' })
   }
@@ -181,7 +179,6 @@ export function CatalogAdminForm() {
     formData.set('sizes', fields.sizes)
     formData.set('featured', fields.featured ? 'yes' : 'no')
     formData.set('link', fields.link)
-    formData.set('password', fields.password)
     formData.set('image', image)
 
     setStatus({ type: 'loading', message: t.adminForm.loadingUpload })
@@ -201,7 +198,7 @@ export function CatalogAdminForm() {
       }
 
       setStatus({ type: 'success', message: payload?.message || 'Товар добавлен в каталог.' })
-      setFields((current) => ({ ...initialFields, password: current.password }))
+      setFields(initialFields)
       setImage(null)
       await loadItems()
     } catch (error) {
@@ -213,11 +210,6 @@ export function CatalogAdminForm() {
   }
 
   const deleteItem = async (item: AdminCatalogItem) => {
-    if (!fields.password) {
-      setStatus({ type: 'error', message: 'Введите пароль администратора, чтобы удалить товар.' })
-      return
-    }
-
     const confirmed = window.confirm(`Удалить товар «${item.name}»? Фото тоже будет удалено.`)
     if (!confirmed) return
 
@@ -227,7 +219,7 @@ export function CatalogAdminForm() {
       const response = await fetch('/api/catalog/items', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: item.id, password: fields.password }),
+        body: JSON.stringify({ id: item.id }),
       })
       const payload = (await response.json().catch(() => null)) as {
         message?: string
@@ -394,12 +386,6 @@ export function CatalogAdminForm() {
               <input type="checkbox" checked={fields.featured} onChange={(event) => setField('featured', event.target.checked)} className="size-5 accent-white" />
             </label>
 
-            <Field label={t.adminForm.password} className="sm:col-span-2">
-              <div className="relative">
-                <LockKeyhole className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-                <input required type="password" autoComplete="current-password" value={fields.password} onChange={(event) => setField('password', event.target.value)} placeholder={t.adminForm.passwordPlaceholder} className={cn(inputClassName, 'pl-11')} />
-              </div>
-            </Field>
           </div>
 
           {status.type !== 'idle' && (
@@ -411,7 +397,7 @@ export function CatalogAdminForm() {
               {status.type === 'loading' ? <Loader2 className="size-4 animate-spin" /> : <UploadCloud className="size-4" />}
               {t.adminForm.submit}
             </button>
-            <button type="button" onClick={() => resetProduct(true)} disabled={status.type === 'loading' || isPreparingImage} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-border px-6 text-sm font-bold uppercase tracking-wider transition hover:bg-secondary disabled:opacity-50">
+            <button type="button" onClick={resetProduct} disabled={status.type === 'loading' || isPreparingImage} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-border px-6 text-sm font-bold uppercase tracking-wider transition hover:bg-secondary disabled:opacity-50">
               <RotateCcw className="size-4" /> {t.adminForm.clear}
             </button>
           </div>
