@@ -30,7 +30,6 @@ export function Contacts() {
                     </div>
                     <strong className="font-heading text-lg uppercase">{value}</strong>
                   </div>
-                  {href && <ArrowUpRight className="absolute right-5 top-5 size-5" aria-hidden="true" />}
                 </>
               )
               const className = 'relative flex min-h-40 flex-col justify-between gap-3 border-b border-border py-5 transition-colors hover:bg-card sm:min-h-56 sm:border-r sm:px-5 lg:min-h-0 lg:flex-row lg:items-center lg:border-r-0 lg:px-5 lg:py-8'
@@ -39,7 +38,7 @@ export function Contacts() {
           </div>
           <div className="h-80 overflow-hidden border border-border bg-card md:h-[560px] lg:h-full">
             <iframe
-              src={`https://www.google.com/maps?q=${STORE.latitude},${STORE.longitude}&output=embed`}
+              src={`https://www.google.com/maps?q=${encodeURIComponent(STORE.address)}&output=embed`}
               title="Rootie store location at 4 Martiros Saryan Street in Yerevan"
               loading="lazy"
               referrerPolicy="strict-origin-when-cross-origin"

@@ -1,16 +1,18 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import Image from 'next/image'
 import { ArrowUpRight, ArrowLeft, ArrowRight } from 'lucide-react'
 import { useLanguage } from '@/components/language-provider'
 import type { CatalogItem } from '@/lib/catalog'
 import { LINKS } from '@/lib/links'
 import { cn } from '@/lib/utils'
+import { ProductModal } from '@/components/product-modal'
 
 export function CatalogGrid({ items }: { items: CatalogItem[] }) {
   const { t } = useLanguage()
   const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const [selectedItem, setSelectedItem] = useState<CatalogItem | null>(null)
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
@@ -57,14 +59,13 @@ export function CatalogGrid({ items }: { items: CatalogItem[] }) {
         const isOut = item.stock === 'out'
 
         return (
-          <a
+          <button
             key={`${item.name}-${index}`}
-            href={isOut ? undefined : LINKS.instagram}
-            target={isOut ? undefined : '_blank'}
-            rel={isOut ? undefined : 'noopener noreferrer'}
-            aria-disabled={isOut || undefined}
+            type="button"
+            onClick={() => !isOut && setSelectedItem(item)}
+            disabled={isOut}
             className={cn(
-              'group relative flex shrink-0 flex-col snap-start w-[85vw] sm:w-[45vw] md:w-[400px]',
+              'group relative flex shrink-0 flex-col snap-start w-[85vw] sm:w-[45vw] md:w-[400px] text-left cursor-pointer',
               isOut && 'pointer-events-none opacity-50',
             )}
           >
@@ -91,10 +92,12 @@ export function CatalogGrid({ items }: { items: CatalogItem[] }) {
               </div>
               <p className={cn('shrink-0 pt-2 text-sm font-bold', isOut && 'line-through')}>{item.price.toLocaleString('ru-RU')} ֏</p>
             </div>
-          </a>
+          </button>
         )
       })}
       </div>
+
+      <ProductModal item={selectedItem} onClose={() => setSelectedItem(null)} />
     </div>
   )
 }

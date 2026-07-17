@@ -42,6 +42,7 @@ const nextConfig = {
     remotePatterns: [
       { protocol: 'https', hostname: '**' },
     ],
+    minimumCacheTTL: 3600,
   },
   async headers() {
     return [{ source: '/(.*)', headers: securityHeaders }]

@@ -1,11 +1,8 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Archivo, Inter } from 'next/font/google'
 import { LINKS, STORE } from '@/lib/links'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin', 'cyrillic'], variable: '--font-inter' })
-const archivo = Archivo({ subsets: ['latin'], weight: ['600', '700', '800', '900'], variable: '--font-archivo' })
 
 const siteUrl = 'https://rootie.am'
 const title = 'ROOTIE'
@@ -97,7 +94,7 @@ const structuredData = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ru" className={`bg-background ${inter.variable} ${archivo.variable}`}>
+    <html lang="ru" className="bg-background">
       <body className="font-sans antialiased">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }} />
         {children}
