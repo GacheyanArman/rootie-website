@@ -5,7 +5,7 @@ export const LINKS = {
   facebook: 'https://www.facebook.com/rootie.yerevan',
   whatsapp: 'https://wa.me/37441773561',
   phone: 'tel:+37441773561',
-  maps: 'https://maps.google.com/?q=4+Martiros+Saryan+St,+Yerevan+0002,+Armenia',
+  maps: 'https://maps.app.goo.gl/jnBq2yH2E8geC7KL9',
 } as const
 
 export const STORE = {
